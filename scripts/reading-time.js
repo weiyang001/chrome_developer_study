@@ -1,9 +1,7 @@
 const article = document.querySelector(".paper-info");
-console.log(article);
 
 // `document.querySelector` may return null if the selector doesn't match anything.
 if (article) {
-    alert("Found an article!");
     const text = article.textContent;
     const wordMatchRegExp = /[^\s]+/g; // Regular expression
     const words = text.matchAll(wordMatchRegExp);
@@ -12,14 +10,18 @@ if (article) {
     const readingTime = Math.round(wordCount / 200);
     const badge = document.createElement("p");
     // Use the same styling as the publish information in an article's header
-    badge.classList.add("color-secondary-text", "type--caption");
+    badge.classList.add("paper-info");
     badge.textContent = `⏱️ ${readingTime} min read`;
 
     // Support for API reference docs
-    const heading = article.querySelector("h1");
+    const heading = document.querySelector("h1");
     // Support for article docs with date
-    const date = article.querySelector(".paper-info")?.parentNode;
+    // const date = document.querySelector(".paper-info")?.parentNode;
 
     // (date ?? heading).insertAdjacentElement("afterend", badge);
-    article.insertAdjacentElement("afterend", badge);
+    if (heading instanceof Element) {
+        heading.insertAdjacentElement("afterend", badge);
+    } else {
+        console.error("Heading is not a valid Element.");
+    }
 }

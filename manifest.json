@@ -4,8 +4,12 @@
     "description": "Add the reading time to Chrome Extension documentation articles",
     "version": "1.0",
     "action": {
-        "default_popup": "index.html",
-        "default_icon": "edition.png"
+        "default_icon": {
+            "16": "images/icon-16.png",
+            "32": "images/icon-32.png",
+            "48": "images/icon-48.png",
+            "128": "images/icon-128.png"
+        }
     },
     "icons": {
         "16": "images/icon-16.png",
@@ -20,7 +24,8 @@
             ],
             "matches": [
                 "https://developer.chrome.com/docs/extensions/*",
-                "https://developer.chrome.com/docs/webstore/*"
+                "https://developer.chrome.com/docs/webstore/*",
+                "https://blog.csdn.net/*"
             ]
         },
         {
@@ -30,6 +35,39 @@
             "matches": [
                 "https://weiyang001.github.io/TSCPNet/"
             ]
+        },
+        {
+            "js": [
+                "scripts/tip-content.js"
+            ],
+            "matches": [
+                "https://developer.chrome.com/docs/extensions/reference/*"
+            ]
         }
-    ]
+    ],
+    "background": {
+        "service_worker": "scripts/service-worker.js",
+        "type": "module"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage",
+        "alarms"
+    ],
+    "host_permissions": [
+        "https://extension-tips.glitch.me/*"
+    ],
+    "commands": {
+        "_execute_action": {
+            "suggested_key": {
+                "default": "Ctrl+B",
+                "mac": "Command+B"
+            }
+        }
+    },
+    "minimum_chrome_version": "102",
+    "omnibox": {
+        "keyword": "api"
+    }
 }
